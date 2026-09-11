@@ -1,0 +1,7 @@
+Hero image provenance
+
+Asset: public/images/hero-editorial-event.png
+Method: built-in image_gen edit of the user-provided reference. This is an AI-edited reference visual, not independently sourced event photography.
+
+Final prompt:
+Edit this reference into a clean website background photograph. Remove ALL text, buttons, menu icon, scroll icon, pagination and all UI overlays. Reconstruct the underlying photograph seamlessly. Preserve the exact composition, sweeping champagne curved exhibition pavilion on right, warm white architectural strips, physical LED screen, realistic visitors in UAE attire, trees, lounge furniture, ceiling trusses, polished floor, perspective and dark cinematic lighting. Left 40% remains dark with subtle venue detail, right 60% dominant architecture. No additional elements. Photographic realism, natural people, no stylization, no neon blue. Wide landscape same aspect as reference. Save the output into the project if supported.
