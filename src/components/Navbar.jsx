@@ -88,12 +88,7 @@ const linkVariants = {
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 768;
-    }
-    return false;
-  });
+  const [isOpen, setIsOpen] = useState(false);
   const [activePath, setActivePath] = useState('');
 
   useEffect(() => {
@@ -102,16 +97,6 @@ export default function Navbar() {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setIsOpen(true);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
