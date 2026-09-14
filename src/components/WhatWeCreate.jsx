@@ -11,6 +11,7 @@ import {
   UsersRound,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import ServiceModal from './ServiceModal.jsx';
 
 const easeOut = [0.22, 1, 0.36, 1];
 
@@ -176,7 +177,7 @@ function SectionHeader() {
     >
       <div className="service-heading-block">
         <motion.p variants={reveal} className="service-eyebrow">
-          WHAT WE CREATE
+          WHAT WE CREATE <span className="mx-2 opacity-30">|</span> <span className="tracking-[0.2em] text-white/70">IMAGINATION • INNOVATION • IMPACT</span>
         </motion.p>
         <motion.h2 variants={reveal} className="service-main-heading">
           <span>EXPERIENCES THAT INSPIRE.</span>
@@ -218,7 +219,7 @@ function HexIcon({ icon: Icon }) {
   );
 }
 
-function ServicePanel({ service, index, hovered, setHovered }) {
+function ServicePanel({ service, index, hovered, setHovered, onExplore }) {
   const Icon = service.icon;
   const isDimmed = hovered !== null && hovered !== index;
 
@@ -270,10 +271,14 @@ function ServicePanel({ service, index, hovered, setHovered }) {
             </h3>
             <p>{service.description}</p>
           </div>
-          <a href={`#${service.slug}`} className="service-explore-link">
+          <button
+            type="button"
+            onClick={() => onExplore(service.slug)}
+            className="service-explore-link cursor-pointer border-none bg-transparent"
+          >
             <span>EXPLORE</span>
             <ArrowUpRight className="h-4 w-4" />
-          </a>
+          </button>
         </div>
       </div>
     </motion.article>
@@ -289,7 +294,7 @@ function CreateCTA() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.5 }}
       transition={{ duration: 0.72, ease: easeOut, delay: 0.32 }}
-      className="group relative flex min-h-[64px] flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 rounded-full border border-white/20 bg-[#02060b]/85 px-8 py-3.5 shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-white hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] w-full max-w-[650px] mx-auto text-center"
+      className="group relative flex min-h-[64px] flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 rounded-full border border-white/20 bg-[#02060b]/85 px-8 py-3.5 shadow-[0_0_30px_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-white hover:shadow-[0_0_25px_rgba(255,255,255,0.15)] w-full max-w-[650px] mx-auto text-center cursor-pointer"
     >
       <span className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.12em] text-white">
         ONE VISION. COUNTLESS POSSIBILITIES.
@@ -305,6 +310,7 @@ function CreateCTA() {
 
 export default function WhatWeCreate() {
   const [hovered, setHovered] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
 
   return (
     <section id="services" className="service-section">
@@ -370,6 +376,7 @@ export default function WhatWeCreate() {
                 index={index}
                 hovered={hovered}
                 setHovered={setHovered}
+                onExplore={(slug) => setSelectedService(slug)}
               />
             ))}
           </div>
@@ -379,7 +386,11 @@ export default function WhatWeCreate() {
           <CreateCTA />
         </div>
       </div>
+
+      <ServiceModal
+        serviceSlug={selectedService}
+        onClose={() => setSelectedService(null)}
+      />
     </section>
   );
 }
-

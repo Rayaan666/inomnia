@@ -1,13 +1,45 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const CTA = () => {
+const CTA = ({ variant = 'home' }) => {
+  const isAbout = variant === 'about';
+
+  const eyebrow = isAbout
+    ? 'OUR VISION & PURPOSE /// DUBAI, UAE'
+    : 'BEGIN THE JOURNEY';
+
+  const headlineText = isAbout ? (
+    <>
+      TRANSFORM YOUR BRAND VISION <br />
+      <span className="text-white">
+        INTO UNFORGETTABLE EXPERIENCES.
+      </span>
+    </>
+  ) : (
+    <>
+      READY TO CREATE AN <br />
+      <span className="text-white">
+        EXTRAORDINARY EVENT IN DUBAI?
+      </span>
+    </>
+  );
+
+  const description = isAbout
+    ? 'Discover how INOMNIA redefines event management, exhibition stand design, and brand activation across Dubai and global destinations. Collaborate with our team of creative strategists, spatial architects, and technical directors to build world-class live experiences.'
+    : 'Partner with INOMNIA for corporate events, exhibitions, brand activations and immersive experiences across Dubai and the UAE. From concept and creative design to production and execution, every detail is crafted to engage audiences and leave a lasting impact.';
+
+  const buttonText = isAbout ? 'CONNECT WITH OUR TEAM' : 'START YOUR PROJECT';
+  const buttonHref = isAbout ? '/#contact' : '#contact';
+  const bgImage = isAbout
+    ? '/about/CTA.png'
+    : 'https://res.cloudinary.com/snos9tuz/image/upload/ChatGPT_Image_Aug_26_2026_11_25_12_AM';
+
   return (
     <section className="relative min-h-[50vh] bg-[#01060D] text-white flex flex-col items-center justify-center overflow-hidden py-20 px-6 font-sans">
       {/* Background Image and Overlays */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://res.cloudinary.com/snos9tuz/image/upload/ChatGPT_Image_Aug_26_2026_11_25_12_AM" 
+          src={bgImage} 
           alt="" 
           className="w-full h-full object-cover opacity-55"
         />
@@ -35,7 +67,7 @@ const CTA = () => {
           transition={{ duration: 0.6 }}
           className="text-white/60 tracking-[0.3em] text-xs font-bold mb-4 uppercase"
         >
-          BEGIN THE JOURNEY
+          {eyebrow}
         </motion.p>
 
         <motion.h2
@@ -45,10 +77,7 @@ const CTA = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-display text-4xl md:text-6xl font-black uppercase tracking-wide leading-tight mb-6"
         >
-          READY TO CREATE AN <br />
-          <span className="text-white">
-            EXTRAORDINARY EVENT IN DUBAI?
-          </span>
+          {headlineText}
         </motion.h2>
 
         <motion.p
@@ -58,7 +87,7 @@ const CTA = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-gray-400 text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-10"
         >
-          Partner with INOMNIA for corporate events, exhibitions, brand activations and immersive experiences across Dubai and the UAE. From concept and creative design to production and execution, every detail is crafted to engage audiences and leave a lasting impact.
+          {description}
         </motion.p>
 
         {/* Cinematic Button */}
@@ -71,12 +100,12 @@ const CTA = () => {
           <a
             href="#"
             onClick={(e) => e.preventDefault()}
-            className="relative group inline-flex items-center justify-center px-10 py-4 font-bold tracking-[0.2em] text-xs uppercase overflow-hidden border border-white/30 bg-transparent text-white rounded-none cursor-default"
+            className="relative group inline-flex items-center justify-center px-10 py-4 font-bold tracking-[0.2em] text-xs uppercase overflow-hidden border border-white/30 bg-transparent text-white rounded-none transition-all duration-300 hover:bg-white hover:text-black hover:border-white cursor-pointer"
           >
-            START YOUR PROJECT
+            {buttonText}
             
             <svg
-              className="w-4 h-4 ml-3 stroke-current"
+              className="w-4 h-4 ml-3 stroke-current transition-transform duration-300 group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

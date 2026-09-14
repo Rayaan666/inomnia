@@ -1,13 +1,40 @@
-import React from 'react';
-import { Instagram, Twitter, Linkedin, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import React, { useState } from 'react';
+import { Instagram, Twitter, Linkedin, Facebook, Mail, Phone, MapPin, Check } from 'lucide-react';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
   const socialLinks = [
-    { name: 'Instagram', icon: Instagram, href: '#' },
-    { name: 'Twitter', icon: Twitter, href: '#' },
-    { name: 'LinkedIn', icon: Linkedin, href: '#' },
-    { name: 'Facebook', icon: Facebook, href: '#' },
+    { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/inomniaevents' },
+    { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
+    { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
+    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com' },
   ];
+
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about' },
+    { name: 'What We Create', href: '#' },
+    { name: 'Testimonials', href: '#' },
+    { name: 'Contact Us', href: '#' },
+  ];
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubscribed(true);
+    setTimeout(() => {
+      setEmail('');
+    }, 500);
+  };
+
+  const handleLinkClick = (href, e) => {
+    if (href === '/' || href === '/about') {
+      return;
+    }
+    e.preventDefault();
+  };
 
   return (
     <footer className="relative bg-[#01060D] text-white border-t border-white/10 pt-20 pb-12 overflow-hidden font-sans">
@@ -21,24 +48,32 @@ const Footer = () => {
           {/* Column 1: Brand Info */}
           <div>
             <div className="inline-block mb-6">
-              <img
-                src="/logo.png"
-                alt="INOMNIA EVENTS"
-                className="h-12 w-auto object-contain"
-              />
+              <a href="/">
+                <img
+                  src="/logo.png"
+                  alt="INOMNIA EVENTS"
+                  className="h-12 w-auto object-contain"
+                />
+              </a>
             </div>
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-white/50 mb-4">
+              IMAGINATION • INNOVATION • IMPACT
+            </p>
             <p className="text-gray-400 text-sm font-light leading-relaxed mb-6">
               Crafting high-end cinematic experiences and unforgettable events that leave lasting impressions.
             </p>
             <div className="flex gap-3">
-              {socialLinks.map(({ name, icon: Icon }) => (
-                <div
+              {socialLinks.map(({ name, icon: Icon, href }) => (
+                <a
                   key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={name}
-                  className="w-10 h-10 border border-white/20 rounded-full flex justify-center items-center text-gray-400 cursor-default"
+                  className="w-10 h-10 border border-white/20 rounded-full flex justify-center items-center text-gray-400 hover:text-white hover:border-white hover:bg-white/10 transition duration-300 cursor-pointer"
                 >
                   <Icon className="w-4 h-4 stroke-[1.5]" />
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -49,14 +84,16 @@ const Footer = () => {
               Navigation
             </h4>
             <ul className="space-y-4">
-              {['Home', 'Who We Are', 'What We Create', 'Our Process', 'Testimonials'].map((link) => (
-                <li key={link}>
-                  <span
-                    className="text-gray-400 text-sm font-light flex items-center cursor-default"
+              {navLinks.map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    onClick={(e) => handleLinkClick(item.href, e)}
+                    className="text-gray-400 text-sm font-light flex items-center hover:text-white transition duration-200 cursor-pointer group"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-white mr-2" />
-                    {link}
-                  </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/40 mr-2 group-hover:bg-white transition duration-200" />
+                    {item.name}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -70,15 +107,15 @@ const Footer = () => {
             <ul className="space-y-4 text-gray-400 text-sm font-light">
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-white shrink-0 mt-0.5" />
-                <span className="text-gray-400">
+                <a href="mailto:hello@inomnia.ae" className="text-gray-400 hover:text-white transition duration-200">
                   hello@inomnia.ae
-                </span>
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-white shrink-0 mt-0.5" />
-                <span className="text-gray-400">
+                <a href="tel:+971556515998" className="text-gray-400 hover:text-white transition duration-200">
                   +971 55 651 5998
-                </span>
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5" />
@@ -97,23 +134,32 @@ const Footer = () => {
             <p className="text-gray-400 text-sm font-light leading-relaxed mb-6">
               Subscribe to get latest updates and news from our luxury events.
             </p>
-            <form onSubmit={(e) => e.preventDefault()} className="relative flex items-center">
-              <input
-                type="email"
-                disabled
-                placeholder="Enter your email"
-                className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3 opacity-60 cursor-not-allowed"
-              />
-              <button
-                type="button"
-                disabled
-                className="absolute right-0 top-0 bottom-0 px-4 bg-white/50 text-black font-bold cursor-not-allowed"
-              >
-                <svg className="w-4 h-4 stroke-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            </form>
+            {subscribed ? (
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 p-3 rounded-lg">
+                <Check className="w-4 h-4 shrink-0 text-emerald-400" />
+                <span>SUBSCRIBED TO INOMNIA NEWSLETTER!</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="relative flex items-center">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3 focus:outline-none focus:border-white transition duration-200 rounded-lg pr-12"
+                />
+                <button
+                  type="submit"
+                  aria-label="Subscribe"
+                  className="absolute right-1 top-1 bottom-1 px-4 bg-white text-black font-bold rounded-md hover:bg-gray-200 transition duration-200 cursor-pointer flex items-center justify-center"
+                >
+                  <svg className="w-4 h-4 stroke-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            )}
           </div>
 
         </div>

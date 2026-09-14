@@ -33,7 +33,7 @@ function ProjectButton({ compact = false }) {
     <a
       href="#"
       onClick={(e) => e.preventDefault()}
-      className={`group relative hidden overflow-hidden rounded-full border border-white/20 bg-white/5 font-extrabold uppercase tracking-[0.18em] text-white transition-all duration-300 md:inline-flex cursor-default ${
+      className={`group relative hidden overflow-hidden rounded-full border border-white/20 bg-white/5 font-extrabold uppercase tracking-[0.18em] text-white transition-all duration-300 md:inline-flex hover:border-white hover:bg-white hover:text-black cursor-pointer ${
         compact ? 'px-6 py-[10px] text-[10px]' : 'px-8 py-[15px] text-[11px]'
       }`}
     >
@@ -92,7 +92,7 @@ export default function Navbar() {
   const [activePath, setActivePath] = useState('');
 
   useEffect(() => {
-    setActivePath(window.location.pathname + window.location.hash);
+    setActivePath(window.location.pathname);
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -118,6 +118,20 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const handleNavClick = (href, e) => {
+    if (href === '/' || href === '/about') {
+      setIsOpen(false);
+      if (href === '/' && window.location.pathname === '/') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+    // Make all other buttons non-functional
+    e.preventDefault();
+    setIsOpen(false);
+  };
+
   return (
     <motion.header
       initial={{ y: -24, opacity: 0 }}
@@ -133,11 +147,14 @@ export default function Navbar() {
         <InomniaLogo />
 
         <div className="flex items-center gap-3 md:gap-7 z-[10000] ml-auto">
-          <ProjectButton compact={isScrolled} />
+          <ProjectButton
+            compact={isScrolled}
+            onClick={(e) => handleNavClick('/#contact', e)}
+          />
           <button
             type="button"
             onClick={() => setIsOpen((val) => !val)}
-            className={`group relative flex items-center justify-center rounded-full border transition-all duration-300 z-[10000] ${
+            className={`group relative flex items-center justify-center rounded-full border transition-all duration-300 z-[10000] cursor-pointer ${
               isOpen
                 ? 'border-white/40 bg-white/10 text-white shadow-[0_0_20px_rgba(255,255,255,0.2)] scale-105'
                 : 'border-white/20 bg-black/40 text-white hover:border-white hover:bg-white/10'
@@ -196,9 +213,8 @@ export default function Navbar() {
                   </span>
                   <div className="space-y-2.5 text-sm">
                     <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                      className="flex items-center gap-3 text-white/80 hover:text-white transition duration-300 group cursor-default"
+                      href="mailto:hello@inomnia.ae"
+                      className="flex items-center gap-3 text-white/80 hover:text-white transition duration-300 group cursor-pointer"
                     >
                       <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 group-hover:border-white/40 group-hover:bg-white/10">
                         <Mail className="h-3.5 w-3.5 text-white" />
@@ -206,9 +222,8 @@ export default function Navbar() {
                       hello@inomnia.ae
                     </a>
                     <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                      className="flex items-center gap-3 text-white/80 hover:text-white transition duration-300 group cursor-default"
+                      href="tel:+971556515998"
+                      className="flex items-center gap-3 text-white/80 hover:text-white transition duration-300 group cursor-pointer"
                     >
                       <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 group-hover:border-white/40 group-hover:bg-white/10">
                         <Phone className="h-3.5 w-3.5 text-white" />
@@ -230,19 +245,20 @@ export default function Navbar() {
                   </span>
                   <div className="flex items-center gap-3">
                     {[
-                      { icon: Instagram, href: '#', label: 'Instagram' },
-                      { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                      { icon: Facebook, href: '#', label: 'Facebook' },
-                      { icon: Youtube, href: '#', label: 'YouTube' },
+                      { icon: Instagram, href: 'https://instagram.com/inomniaevents', label: 'Instagram' },
+                      { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                      { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
+                      { icon: Youtube, href: 'https://youtube.com', label: 'YouTube' },
                     ].map((item) => {
                       const IconComp = item.icon;
                       return (
                         <a
                           key={item.label}
-                          href="#"
-                          onClick={(e) => e.preventDefault()}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           aria-label={item.label}
-                          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition-all duration-300 hover:border-white hover:bg-white hover:text-black hover:scale-110 cursor-default"
+                          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition-all duration-300 hover:border-white hover:bg-white hover:text-black hover:scale-110 cursor-pointer"
                         >
                           <IconComp className="h-4 w-4" />
                         </a>
@@ -263,11 +279,9 @@ export default function Navbar() {
                     <div key={item.name} className="overflow-hidden">
                       <motion.div variants={linkVariants} className="group relative">
                         <a
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                          }}
-                          className="flex items-center justify-between rounded-xl p-2.5 transition-all duration-300 group-hover:bg-white/[0.04] md:rounded-2xl md:px-5 md:py-3.5 cursor-default"
+                          href={item.href}
+                          onClick={(e) => handleNavClick(item.href, e)}
+                          className="flex items-center justify-between rounded-xl p-2.5 transition-all duration-300 group-hover:bg-white/[0.08] md:rounded-2xl md:px-5 md:py-3.5 cursor-pointer"
                         >
                           <div className="flex items-center gap-3 md:gap-7">
                             <span className="text-[11px] font-extrabold tracking-widest text-white/40 md:text-sm font-mono">
@@ -303,12 +317,12 @@ export default function Navbar() {
             <div className="flex flex-col gap-3 border-t border-white/10 pt-5 mt-4 md:hidden">
               <div className="flex justify-between items-center text-[11px] text-white/60">
                 <span>Dubai, UAE</span>
-                <span className="hover:text-white">+971 55 651 5998</span>
+                <a href="tel:+971556515998" className="hover:text-white">+971 55 651 5998</a>
               </div>
               <a
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                className="group relative flex w-full items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/10 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 cursor-default"
+                href="#contact"
+                onClick={(e) => handleNavClick('/#contact', e)}
+                className="group relative flex w-full items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/10 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-white hover:text-black cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   START A PROJECT NOW

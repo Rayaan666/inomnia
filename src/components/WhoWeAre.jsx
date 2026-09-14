@@ -122,9 +122,9 @@ export default function WhoWeAre() {
             </span>
           </div>
 
-          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-500">
+          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-neutral-600">
             <Sparkles className="h-3.5 w-3.5 text-[#7c8493]" />
-            DUBAI • GLOBAL DESTINATIONS
+            IMAGINATION • INNOVATION • IMPACT
           </div>
         </motion.div>
 

@@ -6,10 +6,11 @@ const WhatsAppButton = () => {
 
   return (
     <a
-      href="#"
-      onClick={(e) => e.preventDefault()}
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366]/80 text-white rounded-full shadow-lg pointer-events-none opacity-80"
+      className="group fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-[0_10px_25px_rgba(37,211,102,0.4)] pointer-events-auto opacity-100 hover:scale-110 transition-all duration-300 cursor-pointer"
     >
       {/* Ripple Animation Effect */}
       <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30 pointer-events-none" />
@@ -24,7 +25,7 @@ const WhatsAppButton = () => {
       </svg>
 
       {/* Tooltip on hover */}
-      <span className="absolute right-16 top-1/2 -translate-y-1/2 bg-black/80 text-white text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none border border-white/10 shadow-md">
+      <span className="absolute right-16 top-1/2 -translate-y-1/2 bg-black/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none border border-white/20 shadow-lg">
         Chat with us on WhatsApp
       </span>
     </a>

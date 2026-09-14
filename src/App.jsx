@@ -2,7 +2,6 @@ import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import WhoWeAre from './components/WhoWeAre.jsx';
 import WhatWeCreate from './components/WhatWeCreate.jsx';
-import DreamToReality from './components/DreamToReality.jsx';
 import Testimonials from './components/Testimonials.jsx';
 import OurPartners from './components/OurPartners.jsx';
 import CTA from './components/CTA.jsx';
@@ -17,7 +16,6 @@ function HomePage() {
       <Hero />
       <WhoWeAre />
       <WhatWeCreate />
-      <DreamToReality />
       <OurPartners />
       <Testimonials />
       <CTA />

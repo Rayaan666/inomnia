@@ -1,265 +1,130 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const easeOut = [0.22, 1, 0.36, 1];
 
-const missionLines = [
-  ['MAKE', false],
-  ['EVERY', false],
-  ['MOMENT', false],
-  ['MATTER.', true],
+const sections = [
+  {
+    roman: 'I',
+    tag: 'OUR MISSION',
+    subtitle: 'WHAT DRIVES US TODAY',
+    title: 'MAKE EVERY MOMENT MATTER.',
+    statement:
+      'We exist to turn ideas into meaningful experiences that move people, build genuine connections, and leave a lasting impact. Every detail is crafted with intention—grounded in strategy, emotion, and flawless execution.',
+    quote: 'Purpose is our today.',
+    image: '/images/service-events.png',
+    alt: 'INOMNIA live event stage and production design in Dubai',
+  },
+  {
+    roman: 'II',
+    tag: 'OUR VISION',
+    subtitle: 'WHERE WE ARE HEADING TOMORROW',
+    title: 'SHAPE WHAT EXPERIENCES BECOME.',
+    statement:
+      'We envision a world where experiences are more intentional, more immersive, and more unforgettable than ever before. We continuously challenge conventions to define what live environments, brand architecture, and human connection can achieve.',
+    quote: 'Vision is our tomorrow.',
+    image: '/images/who-installation.png',
+    alt: 'INOMNIA immersive architectural installation in Dubai',
+  },
 ];
-
-const visionLines = [
-  ['SHAPE', false],
-  ['WHAT', false],
-  ['EXPERIENCES', false],
-  ['BECOME.', true],
-];
-
-const outcomes = [
-  ['spark', 'EXPERIENCES', 'THAT', 'RESONATE.'],
-  ['network', 'CONNECTIONS', 'THAT', 'LAST.'],
-  ['cube', 'INNOVATION', 'THAT', 'ELEVATES.'],
-  ['rings', 'LEGACIES', 'THAT', 'INSPIRE.'],
-];
-
-function TechnicalMark() {
-  return (
-    <svg viewBox="0 0 54 54" aria-hidden="true">
-      <circle cx="27" cy="27" r="25" />
-      <circle cx="27" cy="27" r="5" />
-      <path d="M27 15v6M27 33v6M15 27h6M33 27h6" />
-    </svg>
-  );
-}
-
-function PurposeCopy({ side, eyebrow, label, lines, copy, microTitle, microCopy }) {
-  return (
-    <motion.article
-      className={`purpose-panel purpose-panel--${side}`}
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.8, ease: easeOut, delay: side === 'mission' ? 0.18 : 0.28 }}
-    >
-      <div className="purpose-note">
-        <TechnicalMark />
-        <span>{side === 'mission' ? '01' : '02'}</span>
-        <p>{eyebrow}</p>
-      </div>
-
-      <p className="purpose-label">{label}</p>
-      <h3 className="purpose-heading">
-        {lines.map(([text, accent], index) => (
-          <span key={text} className={accent ? 'is-blue' : undefined}>
-            <motion.span
-              initial={{ y: '112%', opacity: 0 }}
-              whileInView={{ y: '0%', opacity: 1 }}
-              viewport={{ once: true, amount: 0.42 }}
-              transition={{ duration: 0.72, ease: easeOut, delay: 0.25 + index * 0.07 }}
-            >
-              {text}
-            </motion.span>
-          </span>
-        ))}
-      </h3>
-      <span className="purpose-rule" aria-hidden="true" />
-      <p className="purpose-body">{copy}</p>
-      <div className="purpose-micro">
-        <p>{microTitle}</p>
-        <span>{microCopy}</span>
-      </div>
-    </motion.article>
-  );
-}
-
-function Axis() {
-  return (
-    <div className="purpose-axis" aria-hidden="true">
-      <motion.span
-        className="purpose-axis__line"
-        initial={{ scaleY: 0 }}
-        whileInView={{ scaleY: 1 }}
-        viewport={{ once: true, amount: 0.34 }}
-        transition={{ duration: 1.15, ease: easeOut, delay: 0.32 }}
-      />
-      <motion.div className="purpose-now" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.62, delay: 0.58 }}>
-        <span>N</span><span>O</span><span>W</span>
-      </motion.div>
-      <span className="purpose-chevron purpose-chevron--top"><i /><i /><i /></span>
-      <motion.div className="purpose-core" initial={{ opacity: 0, scale: 0.84 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.86, ease: easeOut, delay: 0.72 }}>
-        <span className="purpose-light purpose-light--vertical" />
-        <span className="purpose-light purpose-light--horizontal" />
-        <svg className="purpose-orbit" viewBox="0 0 270 270">
-          <circle cx="135" cy="135" r="76" />
-          <circle className="is-dotted" cx="135" cy="135" r="116" />
-          <path d="M135 18v34M135 218v34M18 135h34M218 135h34M72 72l20 20M198 72l-20 20M72 198l20-20M198 198l-20-20" />
-          <circle className="is-fill" cx="135" cy="20" r="3.5" />
-          <circle className="is-fill" cx="60" cy="135" r="4" />
-          <circle className="is-fill" cx="210" cy="135" r="3" />
-          <circle className="is-white" cx="94" cy="94" r="4" />
-        </svg>
-        <span className="purpose-node" />
-      </motion.div>
-      <span className="purpose-chevron purpose-chevron--bottom"><i /><i /></span>
-      <motion.div className="purpose-next" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.62, delay: 0.88 }}>
-        <span>N</span><span>E</span><span>X</span><span>T</span>
-      </motion.div>
-    </div>
-  );
-}
-
-function OutcomeIcon({ type }) {
-  if (type === 'network') {
-    return (
-      <svg viewBox="0 0 56 56" aria-hidden="true">
-        <circle cx="28" cy="28" r="23" />
-        <path d="M28 5v46M8 18l40 20M8 38l40-20M18 8l20 40M38 8 18 48" />
-        <circle cx="28" cy="28" r="2.5" /><circle cx="8" cy="18" r="2.5" /><circle cx="48" cy="18" r="2.5" /><circle cx="8" cy="38" r="2.5" /><circle cx="48" cy="38" r="2.5" />
-      </svg>
-    );
-  }
-
-  if (type === 'cube') {
-    return (
-      <svg viewBox="0 0 56 56" aria-hidden="true">
-        <path d="M28 4 48 16v24L28 52 8 40V16L28 4Z" />
-        <path d="M28 4v24M8 16l20 12 20-12M8 40l20-12 20 12M18 10v24l20 12M38 10 18 46" />
-      </svg>
-    );
-  }
-
-  if (type === 'rings') {
-    return (
-      <svg viewBox="0 0 56 56" aria-hidden="true">
-        <circle cx="28" cy="28" r="24" /><circle cx="28" cy="28" r="18" /><circle cx="28" cy="28" r="12" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 56 56" aria-hidden="true">
-      <path d="M28 2v52M2 28h52M9 9l38 38M47 9 9 47" />
-      <circle cx="28" cy="28" r="7" />
-    </svg>
-  );
-}
-
-function Atmosphere() {
-  return (
-    <>
-      <svg className="purpose-wave" viewBox="0 0 640 260" preserveAspectRatio="none" aria-hidden="true">
-        {Array.from({ length: 46 }).map((_, index) => {
-          const y = 120 + Math.sin(index * 0.38) * 43;
-          return (
-            <path
-              key={index}
-              d={`M0 ${y + index * 1.05} C 132 ${42 + (index % 7) * 14}, 274 ${230 - (index % 9) * 10}, 640 ${108 + Math.sin(index) * 58}`}
-            />
-          );
-        })}
-      </svg>
-      <div className="purpose-horizon" aria-hidden="true" />
-      <div className="purpose-rings" aria-hidden="true" />
-    </>
-  );
-}
 
 export default function OurPurpose() {
   return (
-    <section id="purpose" className="our-purpose-section py-16 px-6 md:px-12 flex justify-center items-center bg-[#02060B]">
-      <div className="w-full max-w-[1400px] mx-auto relative flex flex-col lg:block">
-        
-        {/* Left Content Overlay */}
-        <div className="relative lg:absolute lg:top-[6%] lg:left-[2%] z-10 w-full lg:max-w-[320px] mb-8 lg:mb-0 select-text">
-          <div className="flex items-center gap-1.5 text-[12px] uppercase tracking-[0.25em] text-[#7c8493] font-bold mb-3">
-            <span>01</span>
-            <span className="text-white/40">/</span>
-            <span>WHAT DRIVES US</span>
-          </div>
+    <section
+      id="purpose"
+      className="relative overflow-hidden bg-[#02060B] py-28 sm:py-36 px-6 sm:px-10 md:px-14 lg:px-20 text-white selection:bg-white/20 selection:text-white"
+      aria-labelledby="purpose-heading"
+    >
+      {/* Subtle organic light bloom */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-40">
+        <div className="absolute -top-32 left-1/3 h-[500px] w-[500px] rounded-full bg-white/[0.02] blur-[160px]" />
+        <div className="absolute bottom-0 right-1/4 h-[450px] w-[450px] rounded-full bg-slate-400/[0.02] blur-[150px]" />
+      </div>
 
-          <p className="text-[12px] font-mono tracking-[0.35em] text-white/50 uppercase mb-2">
-            MISSION
-          </p>
-
-          <h2 className="font-display font-black uppercase text-white leading-[0.92] text-[32px] md:text-[40px] lg:text-[46px] mb-4">
-            MAKE<br />
-            EVERY<br />
-            MOMENT<br />
-            <span className="text-[#7c8493]">MATTER.</span>
-          </h2>
-
-          <div className="h-[1.5px] w-12 bg-[#7c8493] mb-4" />
-
-          <p className="text-[14px] leading-[1.68] text-white/80 font-light mb-6">
-            We exist to turn ideas into meaningful experiences that move people, build connections and leave a lasting impact.
-          </p>
-
-          <div className="border-l-2 border-[#7c8493] pl-3.5 py-1 mb-6">
-            <p className="text-[13px] font-mono italic text-white/90 leading-tight">
-              Purpose is<br />our today.
+      <div className="relative z-10 mx-auto max-w-[1780px]">
+        {/* Editorial Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: easeOut }}
+          className="mb-16 sm:mb-20 flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-white/10 pb-8"
+        >
+          <div>
+            <p className="text-[12px] font-bold uppercase tracking-[0.3em] text-neutral-400 mb-3">
+              THE FOUNDATION
             </p>
+            <h2
+              id="purpose-heading"
+              className="font-display text-[clamp(2.6rem,5vw,5.5rem)] font-black uppercase leading-[0.88] tracking-tight text-white"
+            >
+              MISSION & VISION
+            </h2>
           </div>
-
-          <p className="text-[11px] font-mono tracking-[0.22em] text-[#7c8493] font-semibold">
-            25.2048° N<br />
-            55.2708° E
+          <p className="text-[13px] sm:text-[14px] text-neutral-400 font-light tracking-wide max-w-sm sm:text-right">
+            Two guiding principles shaping every environment, stage, and activation we design.
           </p>
+        </motion.div>
+
+        {/* 2-Column Luxury Diptych */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-stretch">
+          {sections.map((item, index) => (
+            <motion.article
+              key={item.tag}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.85, ease: easeOut, delay: index * 0.15 }}
+              className="group relative flex flex-col justify-between rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.03] to-white/[0.01] p-8 sm:p-12 transition-all duration-500 hover:border-white/20"
+            >
+              <div>
+                {/* Top Label Bar */}
+                <div className="flex items-baseline justify-between border-b border-white/[0.08] pb-6 mb-8">
+                  <div>
+                    <span className="text-[12px] font-extrabold tracking-[0.25em] text-white uppercase block">
+                      {item.tag}
+                    </span>
+                    <span className="text-[11px] font-medium tracking-[0.18em] text-neutral-400 uppercase mt-1 block">
+                      {item.subtitle}
+                    </span>
+                  </div>
+                  <span className="font-serif text-[26px] sm:text-[32px] italic text-neutral-500 font-normal">
+                    {item.roman}
+                  </span>
+                </div>
+
+                {/* Monumental Headline */}
+                <h3 className="font-display text-[clamp(2.5rem,4.2vw,4.6rem)] font-black uppercase leading-[0.9] tracking-tight text-white mb-6">
+                  {item.title}
+                </h3>
+
+                {/* Narrative Statement */}
+                <p className="text-[15px] sm:text-[17px] leading-[1.75] text-neutral-300 font-light mb-10 max-w-xl">
+                  {item.statement}
+                </p>
+
+                {/* Cinematic Image Display */}
+                <div className="relative h-[260px] sm:h-[340px] w-full overflow-hidden rounded-xl border border-white/[0.08] mb-8">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    className="h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 filter brightness-[0.88] contrast-[1.05]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#02060B]/70 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Signature Credo Footer */}
+              <div className="border-t border-white/[0.08] pt-6 flex items-center justify-between">
+                <span className="font-serif text-[16px] sm:text-[18px] italic text-neutral-300">
+                  "{item.quote}"
+                </span>
+                <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-neutral-500">
+                  INOMNIA
+                </span>
+              </div>
+            </motion.article>
+          ))}
         </div>
-
-        {/* Cloudinary Image */}
-        <div className="w-full select-none">
-          <picture className="w-full h-auto flex justify-center items-center">
-            <source 
-              media="(min-width: 1200px)" 
-              srcSet="https://res.cloudinary.com/snos9tuz/image/upload/f_auto,q_auto,w_1800/ChatGPT_Image_Aug_28_2026_11_21_46_AM" 
-            />
-            <source 
-              media="(min-width: 768px)" 
-              srcSet="https://res.cloudinary.com/snos9tuz/image/upload/f_auto,q_auto,w_1200/ChatGPT_Image_Aug_28_2026_11_21_46_AM" 
-            />
-            <img 
-              src="https://res.cloudinary.com/snos9tuz/image/upload/f_auto,q_auto,w_800/ChatGPT_Image_Aug_28_2026_11_21_46_AM" 
-              alt="Our Purpose Visual" 
-              className="w-full h-auto object-contain mix-blend-screen filter brightness-[1.05]"
-              loading="lazy"
-            />
-          </picture>
-        </div>
-
-        {/* Right Content Overlay */}
-        <div className="relative lg:absolute lg:top-[6%] lg:right-[2%] z-10 w-full lg:max-w-[320px] mt-8 lg:mt-0 select-text">
-          <div className="flex items-center gap-1.5 text-[12px] uppercase tracking-[0.25em] text-[#7c8493] font-bold mb-3">
-            <span>02</span>
-            <span className="text-white/40">/</span>
-            <span>WHERE WE'RE HEADING</span>
-          </div>
-
-          <p className="text-[12px] font-mono tracking-[0.35em] text-white/50 uppercase mb-2">
-            VISION
-          </p>
-
-          <h2 className="font-display font-black uppercase text-white leading-[0.92] text-[32px] md:text-[40px] lg:text-[46px] mb-4">
-            SHAPE<br />
-            WHAT<br />
-            EXPERIENCES<br />
-            <span className="text-[#7c8493]">BECOME.</span>
-          </h2>
-
-          <div className="h-[1.5px] w-12 bg-[#7c8493] mb-4" />
-
-          <p className="text-[14px] leading-[1.68] text-white/80 font-light mb-6">
-            We envision a world where experiences are more intentional, more immersive and more unforgettable than ever before.
-          </p>
-
-          <div className="border-l-2 border-[#7c8493] pl-3.5 py-1">
-            <p className="text-[13px] font-mono italic text-white/90 leading-tight">
-              Vision is<br />our tomorrow.
-            </p>
-          </div>
-        </div>
-
       </div>
     </section>
   );
