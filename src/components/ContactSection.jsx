@@ -276,7 +276,6 @@ export default function ContactSection() {
                           <option value="Exhibitions & Pavilions">Exhibitions & Pavilions</option>
                           <option value="Technology & Content">Immersive Technology & Content</option>
                           <option value="Entertainment & Shows">Stage Entertainment & Performances</option>
-                          <option value="Staffing Solutions">Event Staffing Solutions</option>
                           <option value="Premium Giveaways">Premium Giveaways & Gifts</option>
                         </select>
                       </div>

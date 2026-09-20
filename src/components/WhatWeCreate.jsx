@@ -65,17 +65,6 @@ const services = [
   },
   {
     number: '05',
-    title: ['STAFFING', 'SOLUTIONS'],
-    description: 'Skilled professionals and host management solutions that ensure seamless service and exceptional guest experiences.',
-    image: 'https://res.cloudinary.com/snos9tuz/image/upload/ChatGPT_Image_Aug_25_2026_06_54_00_PM',
-    icon: UsersRound,
-    slug: 'staffing-solutions',
-    accent: '#7c8493',
-    rgb: '36, 107, 255',
-    shape: 'service-shard-e',
-  },
-  {
-    number: '06',
     title: ['PREMIUM', 'GIVEAWAYS'],
     description: 'Curated, high-quality giveaways and branded merchandise that leave a lasting impression beyond the event.',
     image: 'https://res.cloudinary.com/snos9tuz/image/upload/ChatGPT_Image_Aug_25_2026_06_54_03_PM',
@@ -83,7 +72,7 @@ const services = [
     slug: 'premium-giveaways',
     accent: '#FF3AAE',
     rgb: '255, 58, 174',
-    shape: 'service-shard-f',
+    shape: 'service-shard-e',
   },
 ];
 

@@ -8,6 +8,7 @@ import CTA from './components/CTA.jsx';
 import Footer from './components/Footer.jsx';
 import WhatsAppButton from './components/WhatsAppButton.jsx';
 import AboutPage from './components/AboutPage.jsx';
+import ServicesPage from './components/ServicesPage.jsx';
 
 function HomePage() {
   return (
@@ -26,7 +27,9 @@ function HomePage() {
 }
 
 export default function App() {
-  if (window.location.pathname === '/about') {
+  const pathname = window.location.pathname;
+
+  if (pathname === '/about' || pathname === '/about/') {
     return (
       <>
         <AboutPage />
@@ -35,5 +38,15 @@ export default function App() {
     );
   }
 
+  if (pathname === '/services' || pathname === '/services/') {
+    return (
+      <>
+        <ServicesPage />
+        <WhatsAppButton />
+      </>
+    );
+  }
+
   return <HomePage />;
 }
+

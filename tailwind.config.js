@@ -11,9 +11,19 @@ export default {
           blue: '#7c8493',
           muted: '#A7ADB7',
         },
+        editorial: {
+          deep: '#050505',
+          charcoal: '#0B0B0B',
+          ivory: '#F1EFE9',
+          stone: '#E7E3DC',
+          muted: '#7C8493',
+          bronze: '#A98968',
+        },
       },
       fontFamily: {
         display: ['"Bebas Neue"', '"Anton"', '"Arial Narrow"', 'Impact', 'sans-serif'],
+        condensed: ['"Barlow Condensed"', '"Bebas Neue"', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       keyframes: {

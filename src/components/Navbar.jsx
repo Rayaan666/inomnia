@@ -5,10 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const navItems = [
   { name: 'HOME', href: '/', desc: 'Welcome & Overview' },
   { name: 'ABOUT', href: '/about', desc: 'Our DNA & Philosophy' },
-  { name: 'SERVICES', href: '/#services', desc: 'What We Create' },
-  { name: 'PORTFOLIO', href: '/#portfolio', desc: 'Featured Projects & Activations' },
-  { name: 'TESTIMONIALS', href: '/#testimonials', desc: 'Client Experiences & Praise' },
-  { name: 'PARTNERS', href: '/#partners', desc: 'Global Brand Collaborations' },
+  { name: 'SERVICES', href: '/services', desc: 'What We Create' },
   { name: 'CONTACT', href: '/#contact', desc: 'Get In Touch With Us' },
 ];
 
@@ -119,9 +116,9 @@ export default function Navbar() {
   }, []);
 
   const handleNavClick = (href, e) => {
-    if (href === '/' || href === '/about') {
+    if (href === '/' || href === '/about' || href === '/services') {
       setIsOpen(false);
-      if (href === '/' && window.location.pathname === '/') {
+      if (href === window.location.pathname) {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }

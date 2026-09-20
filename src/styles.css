@@ -5341,3 +5341,47 @@ a {
     display: none;
   }
 }
+
+/* ============================================================
+   EDITORIAL SERVICES DESIGN SYSTEM
+   ============================================================ */
+
+.font-condensed {
+  font-family: 'Barlow Condensed', 'Bebas Neue', sans-serif;
+}
+
+.font-serif-editorial {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.editorial-hero-crop {
+  clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%, 10% 36%);
+}
+
+@media (max-width: 768px) {
+  .editorial-hero-crop {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 92% 100%, 0% 100%);
+  }
+}
+
+.architectural-blueprint-bg {
+  background-image: 
+    linear-gradient(to right, rgba(169, 137, 104, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(169, 137, 104, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.architectural-grid-fine {
+  background-image: 
+    linear-gradient(to right, rgba(5, 5, 5, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(5, 5, 5, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.architectural-grid-dark {
+  background-image: 
+    linear-gradient(to right, rgba(241, 239, 233, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(241, 239, 233, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
