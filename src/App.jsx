@@ -9,6 +9,7 @@ import Footer from './components/Footer.jsx';
 import WhatsAppButton from './components/WhatsAppButton.jsx';
 import AboutPage from './components/AboutPage.jsx';
 import ServicesPage from './components/ServicesPage.jsx';
+import ContactPage from './components/ContactPage.jsx';
 
 function HomePage() {
   return (
@@ -42,6 +43,15 @@ export default function App() {
     return (
       <>
         <ServicesPage />
+        <WhatsAppButton />
+      </>
+    );
+  }
+
+  if (pathname === '/contact' || pathname === '/contact/') {
+    return (
+      <>
+        <ContactPage />
         <WhatsAppButton />
       </>
     );

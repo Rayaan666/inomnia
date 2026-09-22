@@ -6,7 +6,7 @@ const navItems = [
   { name: 'HOME', href: '/', desc: 'Welcome & Overview' },
   { name: 'ABOUT', href: '/about', desc: 'Our DNA & Philosophy' },
   { name: 'SERVICES', href: '/services', desc: 'What We Create' },
-  { name: 'CONTACT', href: '/#contact', desc: 'Get In Touch With Us' },
+  { name: 'CONTACT', href: '/contact', desc: 'Get In Touch With Us' },
 ];
 
 function InomniaLogo() {
@@ -25,11 +25,11 @@ function InomniaLogo() {
   );
 }
 
-function ProjectButton({ compact = false }) {
+function ProjectButton({ compact = false, onClick }) {
   return (
     <a
-      href="#"
-      onClick={(e) => e.preventDefault()}
+      href="/contact"
+      onClick={onClick}
       className={`group relative hidden overflow-hidden rounded-full border border-white/20 bg-white/5 font-extrabold uppercase tracking-[0.18em] text-white transition-all duration-300 md:inline-flex hover:border-white hover:bg-white hover:text-black cursor-pointer ${
         compact ? 'px-6 py-[10px] text-[10px]' : 'px-8 py-[15px] text-[11px]'
       }`}
@@ -116,7 +116,7 @@ export default function Navbar() {
   }, []);
 
   const handleNavClick = (href, e) => {
-    if (href === '/' || href === '/about' || href === '/services') {
+    if (href === '/' || href === '/about' || href === '/services' || href === '/contact') {
       setIsOpen(false);
       if (href === window.location.pathname) {
         e.preventDefault();
@@ -146,7 +146,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3 md:gap-7 z-[10000] ml-auto">
           <ProjectButton
             compact={isScrolled}
-            onClick={(e) => handleNavClick('/#contact', e)}
+            onClick={(e) => handleNavClick('/contact', e)}
           />
           <button
             type="button"
@@ -317,8 +317,8 @@ export default function Navbar() {
                 <a href="tel:+971556515998" className="hover:text-white">+971 55 651 5998</a>
               </div>
               <a
-                href="#contact"
-                onClick={(e) => handleNavClick('/#contact', e)}
+                href="/contact"
+                onClick={(e) => handleNavClick('/contact', e)}
                 className="group relative flex w-full items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/10 px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-white hover:text-black cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">

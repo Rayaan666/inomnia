@@ -15,9 +15,8 @@ const Footer = () => {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
-    { name: 'What We Create', href: '#' },
-    { name: 'Testimonials', href: '#' },
-    { name: 'Contact Us', href: '#' },
+    { name: 'Services', href: '/services' },
+    { name: 'Contact Us', href: '/contact' },
   ];
 
   const handleSubscribe = (e) => {
@@ -30,7 +29,7 @@ const Footer = () => {
   };
 
   const handleLinkClick = (href, e) => {
-    if (href === '/' || href === '/about') {
+    if (href === '/' || href === '/about' || href === '/services' || href === '/contact') {
       return;
     }
     e.preventDefault();
